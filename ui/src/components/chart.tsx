@@ -128,15 +128,16 @@ interface ListRowProps {
 }
 
 function ListRow(props: ListRowProps) {
+    const colWidth = Math.round(props.width * .375)
     const s = props.series
     const yScale = getYScale([s], 25)
-    const xScale = getXScale([s], 150)
+    const xScale = getXScale([s], colWidth)
 
     return <g className={'sparkline-list-item'}>
         <text y={10} dy={"0.71em"} fill={COLORS[props.idx]}
             //      clipPath={`url(#clip-${props.name})`}
         >{props.name}</text>
-        <g transform={'translate(150, 25)'}>
+        <g transform={`translate(${colWidth}, 25)`}>
             <LinePlot series={s} xScale={xScale} yScale={yScale} color={'#7f8c8d'}/>
         </g>
         <text y={10} dy={"0.71em"} x={props.width} textAnchor={'end'} fill={'currentColor'}>
